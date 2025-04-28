@@ -5,12 +5,25 @@ sealed class RickandmortyState {}
 
 final class RickandmortyInitial extends RickandmortyState {}
 
-final class Loading extends RickandmortyState {}
+final class Loading extends RickandmortyState {
+  final List<Model> oldItems;
+  final bool isFirstFetch;
 
-final class Error extends RickandmortyState {}
+  Loading({this.oldItems = const [], this.isFirstFetch = false});
+}
+
+final class Error extends RickandmortyState {
+  final String message;
+
+  Error(this.message);
+}
 
 final class Success extends RickandmortyState {
-  final List<Model> list;
+  final List<Model> items;
+  final bool hasReachedEnd;
 
-  Success(this.list);
+  Success({
+    required this.items,
+    this.hasReachedEnd = false,
+  });
 }
